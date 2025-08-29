@@ -5,31 +5,23 @@ public class EnemySpawner : MonoBehaviour
 {
     [SerializeField] private Enemy _enemy;
     [SerializeField] private float _spawnInterval;
-    [SerializeField] private Transform[] _spawnPoints;
-    [SerializeField] private Vector3 _movementDirection;
+    [SerializeField] private SpawnPoint[] _spawnPoints;
 
     private Coroutine _coroutine;
     private bool _isSpawnerEnabled = true;
-    private float _rotationX = 0f;
-    private float _rotationZ = 0f;
 
     private void Start()
     {
-        foreach (var spawnPoint in _spawnPoints)
-        {
-            Debug.Log(spawnPoint.position);
-        }
-
         StartEnemiesSpawnCount();
     }
 
     private void SpawnEnemy()
     {
-        Transform randomSpawnPoint = _spawnPoints[Random.Range(0, _spawnPoints.Length)];
-        float randomRotationY = Random.Range(0f, 360f);
+        int randomNumberSpawnPoint = Random.Range(0, _spawnPoints.Length);
+        Transform spawnPoint = _spawnPoints[randomNumberSpawnPoint].transform;
 
-        Enemy enemy = Instantiate(_enemy, randomSpawnPoint.position, Quaternion.Euler(_rotationX, randomRotationY, _rotationZ));
-        enemy.Init(_movementDirection);
+        Enemy enemy = Instantiate(_enemy, spawnPoint.position, Quaternion.identity);
+        enemy.Init(_spawnPoints[randomNumberSpawnPoint].Target);
     }
 
     private void StartEnemiesSpawnCount()

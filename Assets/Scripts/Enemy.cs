@@ -2,15 +2,18 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    private Vector3 _movementDirection;
+    [SerializeField] private float _moveSpeed;
 
-    public void Init(Vector3 movementDirection)
+    private Human _target;
+
+    public void Init(Human target)
     {
-        _movementDirection = movementDirection;
+        _target = target;
     }
 
     private void FixedUpdate()
     {
-        transform.Translate(_movementDirection);
+        transform.position = Vector3.Lerp(transform.position, _target.transform.position, _moveSpeed);
+        transform.LookAt(_target.transform.position);
     }
 }
