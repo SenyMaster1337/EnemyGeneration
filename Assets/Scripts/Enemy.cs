@@ -11,7 +11,7 @@ public class Enemy : MonoBehaviour
         _target = target;
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         transform.position = Vector3.Lerp(transform.position, _target.transform.position, _moveSpeed);
         transform.LookAt(_target.transform.position);
