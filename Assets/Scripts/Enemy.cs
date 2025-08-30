@@ -13,7 +13,7 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
-        transform.position = Vector3.Lerp(transform.position, _target.transform.position, _moveSpeed);
+        transform.position = Vector3.Lerp(transform.position, _target.transform.position, _moveSpeed * Time.deltaTime);
         transform.LookAt(_target.transform.position);
     }
 }
